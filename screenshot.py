@@ -1,30 +1,26 @@
-import time
 import pyautogui
-import  tkinter as tk
 
+import tkinter as tk
 
-def screenshot():
-    name = int(round(time.time()*1000))
-    name = '{}.png'.format(name)
-    #time.sleep(5)
-    img = pyautogui.screenshot(name)
-    img.show()
-
+from tkinter import filedialog
 
 root = tk.Tk()
+
 frame = tk.Frame(root)
 frame.pack()
-button = tk.Button(
-    frame,
-    text="TAKE SCREENSHOT",
-    command=screenshot
-)
-button.pack(side=tk.LEFT)
-close=tk.Button(
-    frame,
-    text="QUIT",
-    command=quit
-)
-close.pack(side=tk.LEFT)
 
+
+def takeScreenshot():
+    myScreenshot = pyautogui.screenshot()
+
+    file_path = filedialog.asksaveasfilename(defaultextension='.png')
+
+    myScreenshot.save(file_path)
+
+
+myButton = tk.Button(text="Take Screenshot", command=takeScreenshot, bg='green', fg='white', font=10)
+close_button = tk.Button(text="QUIT", command=quit, bg='red', fg='white', font=10)
+
+myButton.pack(side=tk.LEFT)
+close_button.pack()
 root.mainloop()
